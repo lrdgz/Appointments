@@ -17,6 +17,8 @@ class CreateSpecialtiesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description')->nullable();
+            $table->string('active')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
