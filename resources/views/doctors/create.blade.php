@@ -1,7 +1,15 @@
 @extends('layouts.panel')
 @section('title', 'Doctors')
-@section('content')
 
+@section('styles')
+    <link href="{{asset('vendor/bootstrap-select-1.13.9/dist/css/bootstrap-select.min.css')}}" rel="stylesheet">
+@endsection
+
+@section('scripts')
+    <script src="{{asset('vendor/bootstrap-select-1.13.9/dist/js/bootstrap-select.min.js')}}"></script>
+@endsection
+
+@section('content')
 <div class="card shadow">
     <div class="card-header border-0">
         <div class="row align-items-center">
@@ -36,6 +44,14 @@
             <div class="form-group">
                 <label for="email">Email del medico</label>
                 <input type="text" name="email" id="email" min="3" class="form-control  @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
+            </div>
+            <div class="form-group">
+                <label for="specialties">Especialidades</label>
+                <select name="specialties[]" multiple id="specialties" class="form-control selectpicker" data-style="btn-default" title="Seleccione una o varias">
+                    @foreach($specialties as $specialty)
+                        <option value="{{$specialty->id}}">{{$specialty->name}}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="dni">DNI</label>

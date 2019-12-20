@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'pivot'
     ];
 
     /**
@@ -37,6 +37,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function specialties(){
+        return $this->belongsToMany(Specialty::class)->withTimestamps();
+    }
 
     public function scopePatients($query){
         return $query->where('role','patient');

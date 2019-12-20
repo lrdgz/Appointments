@@ -17,11 +17,23 @@ class UsersTableSeeder extends Seeder
             'email'             => 'dev@dev.com',
             'email_verified_at' => now(),
             'password'          => bcrypt('123456'),
-            'remember_token'    =>  '',
-            'dni'               => '12345678',
-            'address'           => 'test dir',
-            'phone'             => '8292635555',
             'role'              => 'admin'
+        ]);
+
+        User::create([
+            'name'              => 'DR. 1',
+            'email'             => 'doctordev.com',
+            'email_verified_at' => now(),
+            'password'          => bcrypt('123456'),
+            'role'              => 'doctor'
+        ]);
+
+        User::create([
+            'name'              => 'Paciente 1',
+            'email'             => 'patient@dev.com',
+            'email_verified_at' => now(),
+            'password'          => bcrypt('123456'),
+            'role'              => 'patient'
         ]);
 
         factory(User::class, 50)->create();
