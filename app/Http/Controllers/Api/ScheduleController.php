@@ -31,7 +31,37 @@ class ScheduleController extends Controller{
             ->where('day',$day)
             ->where('user_id',$doctorID)
             ->first(['morning_start','morning_end','afternoon_start','afternoon_end']);
-        dd($workDay->toArray());
+
+        if(!$workDay){
+            return [];
+        }
+
+        $morningIntervals = $this->getIntervals($workDay->morning_start,$workDay->morning_end);
+        $afternoonIntervals = $this->getIntervals($workDay->afternoon_start,$workDay->afternoon_end);
+
+        $data = [];
+        $data['morning'] = $morningIntervals;
+        $data['afternoon'] = $afternoonIntervals;
+        return $data;
+    }
+
+
+    private function getIntervals($start, $end){
+        $start = new Carbon($start);
+        $end = new Carbon($end);
+
+        $intervals = [];
+        while($start < $end){
+            $interval = [];
+
+            $interval['start'] = $start->format('g:i A');
+            $start->addMinutes(30);
+            $interval['end'] = $start->format('g:i A');
+
+            $intervals[] = $interval;
+        }
+
+        return $intervals;
     }
 
 }
