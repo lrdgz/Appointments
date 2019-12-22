@@ -1,5 +1,6 @@
 @extends('layouts.panel')
 @section('title', 'Registrar Nueva Cita')
+
 @section('content')
 
     <div class="card shadow">
@@ -69,9 +70,25 @@
                 <div class="form-group">
                     <label for="date_time">Hora de Atencion</label>
                     <div id="hours">
-                        <div class="alert alert-info" role="alert">
-                            <strong>Informacion!</strong> Selecciona un medico y una fecha, para ver sus horas disponibles.
-                        </div>
+                        @if($intervals)
+                            @foreach($intervals['morning'] as $key => $interval)
+                                <div class="custom-control custom-radio mb-3">
+                                    <input name="scheduled_time" value="{{ $interval['start'] }}" class="custom-control-input" id="intervalMorning{{$key}}" type="radio" required>
+                                    <label class="custom-control-label" for="intervalMorning{{$key}}">{{ $interval['start'] }} - {{ $interval['end'] }}</label>
+                                </div>
+                            @endforeach
+
+                            @foreach($intervals['afternoon'] as $key => $interval)
+                                <div class="custom-control custom-radio mb-3">
+                                    <input name="scheduled_time" value="{{ $interval['start'] }}" class="custom-control-input" id="intervalAfternoon{{$key}}" type="radio" required>
+                                    <label class="custom-control-label" for="intervalAfternoon{{$key}}">{{ $interval['start'] }} - {{ $interval['end'] }}</label>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="alert alert-info" role="alert">
+                                <strong>Informacion!</strong> Selecciona un medico y una fecha, para ver sus horas disponibles.
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group">
