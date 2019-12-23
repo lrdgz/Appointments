@@ -34,9 +34,7 @@ const fechData = function(){
 
     const url = `/charts/doctors/column/data?start=${startDate}&end=${endDate}`;
     fetch(url)
-        .then((response) => {
-            return response.json()
-        })
+        .then(response => response.json())
         .then((data) => {
             // console.log(data);
             chart.xAxis[0].setCategories(data.categories);
