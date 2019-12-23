@@ -6,7 +6,7 @@
         <div class="card-header border-0">
             <div class="row align-items-center">
                 <div class="col">
-                    <h3 class="mb-0">Reporte: Frecuencia de citas</h3>
+                    <h3 class="mb-0">Reporte: Medicos mas activos</h3>
                 </div>
             </div>
         </div>
@@ -22,9 +22,13 @@
 @section('styles')
     <style>
         .highcharts-figure, .highcharts-data-table table {
-            min-width: 360px;
+            min-width: 310px;
             max-width: 800px;
             margin: 1em auto;
+        }
+
+        #container {
+            height: 400px;
         }
 
         .highcharts-data-table table {
@@ -63,34 +67,5 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-    <script>
-        Highcharts.chart('container', {
-            chart: {
-                type: 'line'
-            },
-            title: {
-                text: 'Citas registrasdas mensualmente'
-            },
-            xAxis: {
-                categories: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic']
-            },
-            yAxis: {
-                title: {
-                    text: 'Cantidad de citas'
-                }
-            },
-            plotOptions: {
-                line: {
-                    dataLabels: {
-                        enabled: true
-                    },
-                    enableMouseTracking: false
-                }
-            },
-            series: [{
-                name: 'Citas registradas',
-                data: @json($counts)
-            }]
-        });
-    </script>
+    <script src="{{ asset('js/charts/doctors.js') }}"></script>
 @endsection

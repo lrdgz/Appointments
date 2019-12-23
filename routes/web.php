@@ -37,7 +37,8 @@ Route::middleware(['auth', 'admin'])->namespace('Admin')->group(function(){
 
     //Charts
     Route::get('/charts/appointments/line', 'ChartController@appointments');
-    Route::get('/charts/doctors/bar', 'ChartController@doctorsBar');
+    Route::get('/charts/doctors/column', 'ChartController@doctors');
+    Route::get('/charts/doctors/column/data', 'ChartController@doctorsJson');
 
 });
 
