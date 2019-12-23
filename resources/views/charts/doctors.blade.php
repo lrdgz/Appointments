@@ -12,6 +12,39 @@
         </div>
 
         <div class="card-body">
+            <div class="input-daterange datepicker row align-items-center" data-date-format="yyyy-mm-dd">
+                <div class="col">
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                            </div>
+                            <input class="form-control"
+                                   placeholder="Fecha de inicio"
+                                   type="text"
+                                   value="{{ $start }}"
+                                   id="startDate"
+                            >
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <div class="input-group input-group-alternative">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
+                            </div>
+                            <input class="form-control"
+                                   placeholder="Fecha de fin"
+                                   type="text"
+                                   value="{{ $end }}"
+                                   id="endDate"
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="container"></div>
         </div>
 
@@ -62,6 +95,8 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}"></script>
+
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>

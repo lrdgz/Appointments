@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Appointment;
 use App\Http\Controllers\Controller;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
 
@@ -35,16 +36,28 @@ class ChartController extends Controller
     }
 
     public function doctors(){
-        return view('charts.doctors');
+
+        $now = Carbon::now();
+        $end =  $now->format('Y-m-d');
+        $start = $now->subYear()->format('Y-m-d');
+
+        return view('charts.doctors', compact('start','end'));
     }
 
     public function doctorsJson(Request $request){
 
+        $start = $request->input('start');
+        $end = $request->input('end');
+
         $doctors = User::doctors()
             ->select('name')
             ->withCount([
-                'attendedAppointments',
-                'cancelAppointments'
+                'attendedAppointments' => function($query) use ($start, $end){
+                    $query->whereBetween('scheduled_date', [$start,$end]);
+                },
+                'cancelAppointments' => function($query) use ($start, $end){
+                    $query->whereBetween('scheduled_date', [$start,$end]);
+                }
             ])
             ->orderBy('attended_appointments_count', 'DESC')
             ->limit(3)
