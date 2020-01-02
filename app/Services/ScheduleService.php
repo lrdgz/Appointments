@@ -27,12 +27,13 @@ class ScheduleService implements ScheduleServiceInterface {
             ->where('user_id',$doctorId)
             ->first(['morning_start','morning_end','afternoon_start','afternoon_end']);
 
-        if(!$workDay){
-            return [];
-        }
-
-        $morningIntervals = $this->getIntervals($workDay->morning_start,$workDay->morning_end, $date, $doctorId);
-        $afternoonIntervals = $this->getIntervals($workDay->afternoon_start,$workDay->afternoon_end, $date, $doctorId);
+        if($workDay){
+			$morningIntervals = $this->getIntervals($workDay->morning_start,$workDay->morning_end, $date, $doctorId);
+			$afternoonIntervals = $this->getIntervals($workDay->afternoon_start,$workDay->afternoon_end, $date, $doctorId);
+        } else {
+			$morningIntervals = [];
+			$afternoonIntervals = [];
+		}
 
         $data = [];
         $data['morning'] = $morningIntervals;
